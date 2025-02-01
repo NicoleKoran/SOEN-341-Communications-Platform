@@ -17,3 +17,5 @@ This platform provides a versatile solution for communication, offering text cha
 
 **Technologies**
 TBD
+Backend: TBD
+Front end: TBD
