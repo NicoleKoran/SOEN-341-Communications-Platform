@@ -9,7 +9,7 @@ This platform provides a versatile solution for communication, offering text cha
 **Team Members**
 - Robert Mounsef | 40279248 | RobertMounsef
 - Tala Khraim | 40276410 |
-- Noah Afriat | 40276193 |
+- Noah Afriat | 40276193 | noahafriat
 - Nicole Koran | 40281430 | NicoleKoran
 - Justin Tran | 40281429 |
 - Abdul Rehman | 40279024 |
