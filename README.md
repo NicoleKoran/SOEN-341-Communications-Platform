@@ -11,7 +11,7 @@ This platform provides a versatile solution for communication, offering text cha
 - Tala Khraim | 40276410 |
 - Noah Afriat | 40276193 | noahafriat
 - Nicole Koran | 40281430 | NicoleKoran
-- Justin Tran | 40281429 |
+- Justin Tran | 40281429 | justinTran26
 - Abdul Rehman | 40279024 |
 - Andrii Branytskyi | 40251093 |
 
