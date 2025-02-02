@@ -1,10 +1,12 @@
 # SOEN-341-Communications-Platform
 
 **Objective**
-To create a versatile communication platform
+Develop a versatile communication platform that enables seamless collaboration and interaction through text channels and direct messaging, offering an intuitive, organized, and customizable space for teams, communities, and individuals.
 
-**Project**
-This platform provides a versatile solution for communication, offering text channels for group discussions and direct messaging for private conversations. It allows users to engage with teams, communities, or friends through an intuitive and organized interface. Users can create topic-specific channels, share media, and have one-on-one chats, all while benefiting from customizable features that enhance their experience. The platform prioritizes privacy with robust settings and presents a clean, user-friendly interface. Whether for collaboration, community-building, or personal chats, this platform ensures efficient and meaningful communication.
+**Project Description**
+This project focuses on building a dynamic communication platform that streamlines interactions through text channels and direct messaging. Designed for teams, communities, and individual users, it provides an organized and user-friendly space to connect and collaborate effortlessly.
+
+Key features include the ability to create dedicated channels for specific topics, share media, and engage in private conversations. Customization options enhance user experience, while a clean interface and strong privacy controls ensure secure and efficient communication. This platform serves as a reliable hub for staying connected in any setting.
 
 **Team Members**
 - Robert Mounsef | 40279248 | RobertMounsef
