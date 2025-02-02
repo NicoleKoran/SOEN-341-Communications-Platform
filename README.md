@@ -8,7 +8,7 @@ This dynamic communication platform streamlines interactions through text channe
 
 **Team Members**
 - Robert Mounsef | 40279248 | RobertMounsef
-- Tala Khraim | 40276410 | talakhraim
+- Tala Khraim | 40276410 |
 - Noah Afriat | 40276193 | noahafriat
 - Nicole Koran | 40281430 | NicoleKoran
 - Justin Tran | 40281429 | justinTran26
