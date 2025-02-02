@@ -16,6 +16,6 @@ This platform provides a versatile solution for communication, offering text cha
 - Andrii Branytskyi | 40251093 |
 
 **Technologies**
-TBD
+Java based
 Backend: TBD
 Front end: TBD
