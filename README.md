@@ -12,7 +12,7 @@ This dynamic communication platform streamlines interactions through text channe
 - Noah Afriat | 40276193 | noahafriat
 - Nicole Koran | 40281430 | NicoleKoran
 - Justin Tran | 40281429 | justinTran26
-- Abdul Rehman | 40279024 |
+- Abdul Rehman | 40279024 |  Abdul-RehmanCU
 - Andrii Branytskyi | 40251093 | AndriiBranytskyi
 
 **Technologies**
