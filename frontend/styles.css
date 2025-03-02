@@ -1,0 +1,204 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f1f1f1;
+}
+
+/* Layout */
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 25%;
+    background: white;
+    border-right: 2px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 2px solid darkred;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background: gray;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.username {
+    font-size: 20px;
+    font-weight: bold;
+    color: darkred;
+}
+
+/* Search Bar */
+.search {
+    margin: 10px 0;
+    padding: 5px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Chat List */
+.chat-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.chat {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    font-weight: bold;
+    color: darkred;
+}
+
+.chat:hover {
+    background: #eee;
+}
+
+/* Chat Area */
+.chat-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: white;
+}
+
+/* Chat Header */
+.chat-header {
+    padding: 10px;
+    background: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    color: darkred;
+}
+
+/* Menu Button mobile only */
+.menu-btn {
+    display: none;
+    font-size: 20px;
+    color: darkred;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Message History */
+.message-history {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.message {
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    font-weight:500;
+    color: white;
+}
+
+.sent {
+    background: darkred;
+    align-self: flex-end;
+}
+
+.received {
+    background: #ddd;
+}
+
+/* Message Input */
+.message-input {
+    display: flex;
+    padding: 10px;
+    border-top: 2px solid #ddd;
+}
+
+.message-input input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.message-input button {
+    margin-left: 5px;
+    padding: 8px;
+    background: darkred;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Contact Info */
+.contact-info {
+    width: 25%;
+    background: white;
+    color: darkred;
+    padding: 10px;
+    border-left: 2px solid #ddd;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Close Button (Hidden on Large Screens) */
+.close-btn {
+    display: none;
+    margin-bottom: 10px;
+    padding: 5px;
+    background: #ddd;
+    font-weight: bold;
+    font-size: medium;
+    color: darkred;
+    border: none;
+    cursor: pointer;
+}
+
+/* 📱 Mobile Responsive Adjustments */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 30%;
+    }
+
+    .chat-area {
+        width: 70%;
+    }
+
+    /* Contact Info is Hidden by Default on Mobile */
+    .contact-info {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 70%;
+        height: 100%;
+        background: white;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Show Menu Button on Mobile */
+    .menu-btn {
+        display: block;
+    }
+
+    /* Show Close Button in Contact Info on Mobile */
+    .close-btn {
+        display: block;
+    }
+}

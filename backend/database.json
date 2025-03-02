@@ -1,0 +1,56 @@
+{
+  "chat1": [
+    {
+      "sender": "Alice",
+      "text": "Hey Bob!",
+      "timestamp": "2024-02-12T12:00:00Z"
+    },
+    {
+      "sender": "Bob",
+      "text": "Hi Alice!",
+      "timestamp": "2024-02-12T12:01:00Z"
+    },
+    {
+      "sender": "Alice",
+      "text": "How are you",
+      "timestamp": "2025-02-12T23:44:25.456Z"
+    },
+    {
+      "sender": "Alice",
+      "text": "Good",
+      "timestamp": "2025-02-12T23:44:46.006Z"
+    },
+    {
+      "sender": "Alice",
+      "text": "Wow",
+      "timestamp": "2025-02-12T23:47:24.575Z"
+    },
+    {
+      "sender": "Bob",
+      "text": "Father Alice?",
+      "timestamp": "2025-02-12T23:48:09.663Z"
+    },
+    {
+      "sender": "Charlie",
+      "text": "Goat",
+      "timestamp": "2025-02-12T23:48:31.492Z"
+    }
+  ],
+  "chat2": [
+    {
+      "sender": "Charlie",
+      "text": "Hello Beta",
+      "timestamp": "2025-02-12T23:47:48.014Z"
+    },
+    {
+      "sender": "Alice",
+      "text": "Alright",
+      "timestamp": "2025-02-12T23:49:04.433Z"
+    },
+    {
+      "sender": "Charlie",
+      "text": "Hello",
+      "timestamp": "2025-03-02T17:09:28.028Z"
+    }
+  ]
+}
