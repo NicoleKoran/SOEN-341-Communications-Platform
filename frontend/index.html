@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Messenger Clone</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Sidebar (User Profile + Chats) -->
+      <div class="sidebar">
+        <div class="profile">
+          <h2 class="username">
+            Logged in as: <span id="currentUser">Alice</span>
+          </h2>
+          <select id="userSelector">
+            <option>Alice</option>
+            <option>Bob</option>
+            <option>Charlie</option>
+            <option>David</option>
+          </select>
+        </div>
+        <div class="chat-list" id="chatList"></div>
+      </div>
+
+      <!-- Chat space-->
+      <div class="chat-area">
+        <div class="chat-header">
+          <!-- three bar for mpobile -->
+          <h2 id="chatName">Chat Name</h2>
+          <button class="menu-btn" onclick="toggleContactInfo()">☰</button>
+        </div>
+        <div class="message-history" id="messageHistory"></div>
+        <div class="message-input">
+          <input
+            type="text"
+            id="messageInput"
+            placeholder="Type a message..."
+          />
+          <button onclick="sendMessage()">Send</button>
+        </div>
+      </div>
+
+      <!-- Cont inf (mobile only) -->
+      <div class="contact-info" id="contactInfo">
+        <button class="close-btn" onclick="toggleContactInfo()">Close</button>
+        <h2>Contact Info</h2>
+        <p>Details about the user...</p>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
