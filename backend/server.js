@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 
 const app = express();
-const PORT = 8888;
+const PORT = 7777;
 
 app.use(cors());
 app.use(express.json());
@@ -12,9 +12,52 @@ app.use(express.json());
 // Add this line to serve static files from the frontend directory
 app.use(express.static(path.join(__dirname, '../frontend')));
 
+// Database files
 const DATABASE_FILE = "database.json";
-let messages = JSON.parse(fs.readFileSync(DATABASE_FILE, "utf-8"));
+const USERS_FILE = path.join(__dirname, "users.json");
 
+// Initialize users database if it doesn't exist
+if (!fs.existsSync(USERS_FILE)) {
+    fs.writeFileSync(USERS_FILE, JSON.stringify({}, null, 2));
+}
+
+// Load databases
+let messages = JSON.parse(fs.readFileSync(DATABASE_FILE, "utf-8"));
+let users = JSON.parse(fs.readFileSync(USERS_FILE, "utf-8"));
+
+// User endpoints
+app.get("/users", (req, res) => {
+    res.json(users);
+});
+
+app.post("/users", (req, res) => {
+    const { username, email, phoneNumber } = req.body;
+    
+    // Validate input
+    if (!username || !email || !phoneNumber) {
+        return res.status(400).json({ error: "All fields are required" });
+    }
+    
+    // Check if username already exists
+    if (users[username]) {
+        return res.status(400).json({ error: "Username already exists" });
+    }
+    
+    // Add new user with default role of "user"
+    users[username] = {
+        email,
+        phoneNumber,
+        role: "user", // Default role
+        createdAt: new Date().toISOString()
+    };
+    
+    // Save to file
+    fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
+    
+    res.json({ username, ...users[username] });
+});
+
+// Existing message endpoints
 app.get("/messages/:chatId", (req, res) => {
     const chatId = req.params.chatId;
     res.json(messages[chatId] || []);

@@ -22,14 +22,13 @@
           </select>
         </div>
         <div class="chat-list" id="chatList"></div>
+        <button id="registerBtn" class="register-button">Register New User</button>
       </div>
 
       <!-- Chat space-->
       <div class="chat-area">
         <div class="chat-header">
-          <!-- three bar for mpobile -->
           <h2 id="chatName">Chat Name</h2>
-          <button class="menu-btn" onclick="toggleContactInfo()">☰</button>
         </div>
         <div class="message-history" id="messageHistory"></div>
         <div class="message-input">
@@ -44,10 +43,34 @@
 
       <!-- Cont inf (mobile only) -->
       <div class="contact-info" id="contactInfo">
-        <button class="close-btn" onclick="toggleContactInfo()">Close</button>
-        <h2>Contact Info</h2>
-        <p>Details about the user...</p>
+        <div class="contact-header">
+          <h2>Contact Info</h2>
+          <div class="header-controls">
+            <select id="contactSelector" class="contact-selector">
+              <option value="">Select user info...</option>
+            </select>
+            <button class="close-btn" onclick="toggleContactInfo()">Close</button>
+          </div>
+        </div>
+        <div id="userDetails">
+          <p><strong>Username:</strong> <span id="detailUsername">-</span></p>
+          <p><strong>Email:</strong> <span id="detailEmail">-</span></p>
+          <p><strong>Phone:</strong> <span id="detailPhone">-</span></p>
+          <p><strong>Role:</strong> <span id="detailRole">-</span></p>
+          <p><strong>Member since:</strong> <span id="detailCreated">-</span></p>
+        </div>
       </div>
+    </div>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Register New User</h3>
+            <input type="text" id="newUsername" placeholder="Username" />
+            <input type="email" id="newEmail" placeholder="Email" />
+            <input type="tel" id="newPhone" placeholder="Phone Number" />
+            <button onclick="registerUser()">Register</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
