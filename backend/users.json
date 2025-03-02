@@ -1,0 +1,38 @@
+{
+  "Alice": {
+    "email": "alice@gmail.com",
+    "phoneNumber": "999",
+    "role": "user",
+    "createdAt": "2024-03-02T00:00:00.000Z"
+  },
+  "Bob": {
+    "email": "bob@gmail.com",
+    "phoneNumber": "123",
+    "role": "user",
+    "createdAt": "2024-03-02T00:00:00.000Z"
+  },
+  "Charlie": {
+    "email": "charlie@gmail.com",
+    "phoneNumber": "321",
+    "role": "user",
+    "createdAt": "2024-03-02T00:00:00.000Z"
+  },
+  "David": {
+    "email": "david@gmail.com",
+    "phoneNumber": "432",
+    "role": "user",
+    "createdAt": "2024-03-02T00:00:00.000Z"
+  },
+  "RobertTest": {
+    "email": "Robert@gmail.com",
+    "phoneNumber": "124",
+    "role": "admin",
+    "createdAt": "2025-03-02T17:22:44.756Z"
+  },
+  "Testingagain": {
+    "email": "Test@gmail.com",
+    "phoneNumber": "123",
+    "role": "user",
+    "createdAt": "2025-03-02T17:28:48.352Z"
+  }
+}
