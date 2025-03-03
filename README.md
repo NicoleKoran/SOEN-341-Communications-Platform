@@ -15,12 +15,34 @@ This dynamic communication platform streamlines interactions through text channe
 - Abdul Rehman | 40279024 |  Abdul-RehmanCU
 - Andrii Branytskyi | 40251093 | AndriiBranytskyi
 
-**Technologies**
-Java based
-Backend: TBD
-Front end: TBD
+## Tech Stack
 
-**Step-by-Step Launch Guide**
+### Frontend:
+- **HTML** - Defines the structure of the web application.
+- **CSS** - Handles styling and layout.
+- **JavaScript** - Manages client-side interactions and API calls.
+
+### Backend:
+- **Node.js** - Runs the backend server.
+- **Express.js** - Handles HTTP requests and routing.
+- **CORS** - Enables cross-origin resource sharing.
+- **File System (`fs`)** - Reads and writes JSON-based databases.
+
+### Database:
+- **JSON-based storage**:
+  - `users.json` - Stores user data.
+  - `database.json` - Stores chat messages.
+
+### APIs & Communication:
+- **REST API** (Implemented using Express.js):
+  - `/users` - Manages user registration and retrieval.
+  - `/messages` - Handles chat messaging and retrieval.
+
+### Development Tools & Setup:
+- **GitHub** - Version control and collaboration.
+- **Local development server** - Runs on `localhost:7777`.
+
+## Step-by-Step Launch Guide
 1. Download the Project
 Clone the GitHub repository using:
 git clone <repository-link>
