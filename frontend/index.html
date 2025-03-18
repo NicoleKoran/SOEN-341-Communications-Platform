@@ -29,9 +29,15 @@
       <div class="chat-area">
         <div class="chat-header">
           <h2 id="chatName">Chat Name</h2>
-        </div>
+        </div>    
         <div class="message-history" id="messageHistory"></div>
-        <div class="message-input">
+        
+        <div class="reply-container" id="replyContainer" style="display: none;">
+          <p id="replyingToText"></p>
+          <button class="cancel-reply" onclick="cancelReply()">Cancel Reply</button>
+      </div>  
+        
+      <div class="message-input">
           <input
             type="text"
             id="messageInput"

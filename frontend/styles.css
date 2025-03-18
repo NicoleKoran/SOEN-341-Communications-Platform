@@ -107,11 +107,21 @@ body {
 }
 
 .message {
-    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 10px;
     margin-bottom: 5px;
     border-radius: 5px;
-    font-weight:500;
+    font-weight: 500;
     color: white;
+    transition: background 0.2s ease-in-out;
+}
+
+.message-content {
+    display: flex;
+    flex-direction: column;
 }
 
 .sent {
@@ -120,7 +130,7 @@ body {
 }
 
 .received {
-    background: #ddd;
+    background: #ccc;
 }
 
 /* Message Input */
@@ -144,6 +154,11 @@ body {
     color: white;
     border: none;
     cursor: pointer;
+    border-radius: 4px;
+}
+
+.message-input button:hover {
+    background: #990000;
 }
 
 /* Contact Info */
@@ -291,4 +306,75 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+}
+
+/* Reply Container */
+.reply-container {
+    background: #f8eaea; /* Light red background */
+    padding: 8px 12px;
+    border-left: 4px solid darkred;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    color: darkred;
+    border-radius: 5px;
+    margin: 5px 10px;
+}
+
+/* Reply Text */
+.reply-container p {
+    margin: 0;
+    font-weight: bold;
+    color: darkred;
+}
+
+/* Cancel Reply Button */
+.cancel-reply {
+    background: darkred;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.cancel-reply:hover {
+    background: #990000;
+}
+
+/* Reply Preview inside Messages */
+.reply-preview {
+    font-size: 0.9em;
+    color: darkred;
+    background: #f5d5d5;
+    padding: 6px 10px;
+    border-left: 3px solid darkred;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    font-style: italic;
+}
+
+/* Reply button - Hidden by default */
+.reply-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.85em;
+    cursor: pointer;
+    background: darkred;
+    border: none;
+    color: white;
+    font-weight: bold;
+    opacity: 0; /* Start hidden */
+    transition: opacity 0.2s ease-in-out;
+    border-radius: 5px;
+}
+
+/* Show reply button when hovering over a message */
+.message:hover .reply-btn {
+    opacity: 1; /* Fade in */
 }
