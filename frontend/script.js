@@ -2,6 +2,7 @@ const API_URL = "http://localhost:7777";
 let currentUser = "Alice";
 let currentChat = "chat1";
 
+let replyingTo = null;
 
 document.getElementById("userSelector").addEventListener("change", function() {
     currentUser = this.value;
@@ -31,8 +32,45 @@ async function openChat(chatId) {
 function displayMessage(msg) {
     const messageBox = document.createElement("div");
     messageBox.className = `message ${msg.sender === currentUser ? "sent" : "received"}`;
-    messageBox.innerHTML = `<strong>${msg.sender}:</strong> ${msg.text}`;
+
+    
+    const messageContent = document.createElement("div");
+    messageContent.className = "message-content";
+
+    //show reply msg if a reply
+    if (msg.replyTo) {
+        const replyPreview = document.createElement("div");
+        replyPreview.className = "reply-preview";
+        replyPreview.innerHTML = `<strong>Replying to:</strong> ${msg.replyTo.text}`;
+        messageContent.appendChild(replyPreview);
+    }
+
+    
+    const textElement = document.createElement("div");
+    textElement.innerHTML = `<strong>${msg.sender}:</strong> ${msg.text}`;
+    messageContent.appendChild(textElement);
+
+    //Reply only shown if not current user yk
+    if (msg.sender !== currentUser) {
+        const replyBtn = document.createElement("button");
+        replyBtn.innerText = "Reply";
+        replyBtn.className = "reply-btn";
+        replyBtn.onclick = () => setReply(msg);
+        messageBox.appendChild(replyBtn);
+    }
+
+    // ajoute content and button (if applicable) to the message box
+    messageBox.appendChild(messageContent);
+
+    // add to the chat history
     document.getElementById("messageHistory").appendChild(messageBox);
+}
+
+
+function setReply(msg) {
+    replyingTo = msg;
+    document.getElementById("replyingToText").innerText = `Replying to: ${msg.text}`;
+    document.getElementById("replyContainer").style.display = "block";
 }
 
 // Send msg
@@ -41,9 +79,13 @@ async function sendMessage() {
     const text = input.value.trim();
     if (!text) return;
 
-    const message = { chatId: currentChat, sender: currentUser, text };
+    const message = {
+        chatId: currentChat,
+        sender: currentUser,
+        text,
+        replyTo: replyingTo ? { sender: replyingTo.sender, text: replyingTo.text } : null, // Include reply reference
+    };
 
-    // Send to api
     await fetch(`${API_URL}/messages`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -52,7 +94,15 @@ async function sendMessage() {
 
     displayMessage(message);
     input.value = "";
+    replyingTo = null;
+    document.getElementById("replyContainer").style.display = "none";
 }
+
+function cancelReply() {
+    replyingTo = null;
+    document.getElementById("replyContainer").style.display = "none";
+}
+
 function toggleContactInfo() {
     const contactInfo = document.getElementById("contactInfo");
     const contactSelector = document.getElementById("contactSelector");

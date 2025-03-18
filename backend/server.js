@@ -64,17 +64,26 @@ app.get("/messages/:chatId", (req, res) => {
 });
 
 app.post("/messages", (req, res) => {
-    const { chatId, sender, text } = req.body;
+    const { chatId, sender, text, replyTo } = req.body;
 
     if (!messages[chatId]) {
         messages[chatId] = [];
     }
 
-    const message = { sender, text, timestamp: new Date().toISOString() };
+    
+    const message = {
+        sender,
+        text,
+        timestamp: new Date().toISOString(),
+        replyTo: replyTo ? { sender: replyTo.sender, text: replyTo.text } : null //reply msgs are stored
+    };
+
     messages[chatId].push(message);
     fs.writeFileSync(DATABASE_FILE, JSON.stringify(messages, null, 2));
 
     res.json(message);
 });
+
+
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
