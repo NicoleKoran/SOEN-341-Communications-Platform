@@ -43,6 +43,29 @@ body {
     color: darkred;
 }
 
+/* Chat Controls */
+.chat-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.chat-button {
+    padding: 8px;
+    background: darkred;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.chat-button:hover {
+    background: #990000;
+}
+
 /* Search Bar */
 .search {
     margin: 10px 0;
@@ -64,10 +87,108 @@ body {
     cursor: pointer;
     font-weight: bold;
     color: darkred;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .chat:hover {
     background: #eee;
+}
+
+.chat-info {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.chat-type {
+    font-size: 0.8em;
+    color: #666;
+    font-weight: normal;
+}
+
+/* Chat Actions Dropdown */
+.chat-actions {
+    position: relative;
+    margin-left: 10px;
+    z-index: 100;
+}
+
+.chat-menu-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: darkred;
+    cursor: pointer;
+    padding: 5px 10px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0;
+    position: relative;
+}
+
+.chat-menu-btn:hover {
+    color: #990000;
+    background: #f5f5f5;
+}
+
+.chat-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1000;
+    min-width: 120px;
+    margin-top: 5px;
+}
+
+.chat-dropdown button {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    color: darkred;
+    font-weight: normal;
+}
+
+.chat-dropdown button:hover {
+    background: #f5f5f5;
+}
+
+.chat-dropdown button:first-child {
+    border-bottom: 1px solid #ddd;
+}
+
+/* Checkbox List for Group Chat */
+.checkbox-list {
+    max-height: 200px;
+    overflow-y: auto;
+    margin: 10px 0;
+}
+
+.checkbox-list label {
+    display: block;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.checkbox-list input[type="checkbox"] {
+    margin-right: 8px;
 }
 
 /* Chat Area */
@@ -87,6 +208,33 @@ body {
     justify-content: space-between;
     font-weight: bold;
     color: darkred;
+}
+
+.chat-header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.chat-header h2 {
+    margin: 0;
+    flex: 1;
+}
+
+.delete-button {
+    padding: 8px 16px;
+    background: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.delete-button:hover {
+    background: #cc0000;
 }
 
 /* Menu Button mobile only */
@@ -358,9 +506,8 @@ body {
 }
 
 /* Reply button - Hidden by default */
-.reply-btn {
+.reply-btn, .delete-msg-btn {
     position: absolute;
-    right: 10px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 0.85em;
@@ -369,12 +516,44 @@ body {
     border: none;
     color: white;
     font-weight: bold;
-    opacity: 0; /* Start hidden */
+    opacity: 0; /* Initially hidden */
     transition: opacity 0.2s ease-in-out;
     border-radius: 5px;
+    padding: 4px 8px;
+    height: 28px;
+    line-height: 20px; /* Ensures same height for both buttons */
+}
+
+.reply-btn {
+    right: 10px; /* Reply button stays at original position */
 }
 
 /* Show reply button when hovering over a message */
 .message:hover .reply-btn {
     opacity: 1; /* Fade in */
+}
+.delete-msg-btn {
+    position: absolute;
+    right: 70px; /* Slightly to the left of the Reply button */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.85em;
+    cursor: pointer;
+    background: darkred;
+    border: none;
+    color: white;
+    font-weight: bold;
+    opacity: 0; /* Hidden initially */
+    transition: opacity 0.2s ease-in-out;
+    border-radius: 5px;
+    padding: 4px 8px;
+}
+
+/* Show delete button when hovering over a message */
+.message:hover .delete-msg-btn {
+    opacity: 1; /* Fade in */
+}
+
+.delete-msg-btn:hover {
+    background: #990000;
 }
