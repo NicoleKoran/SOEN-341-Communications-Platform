@@ -1,0 +1,26 @@
+{
+  "group-1742581004630": {
+    "id": "group-1742581004630",
+    "type": "group",
+    "name": "Testing again",
+    "participants": [
+      "RobertTest",
+      "Alice",
+      "Bob",
+      "Charlie",
+      "David"
+    ],
+    "createdBy": "RobertTest",
+    "createdAt": "2025-03-21T18:16:44.630Z"
+  },
+  "Alice-David": {
+    "id": "Alice-David",
+    "type": "direct",
+    "participants": [
+      "Alice",
+      "David"
+    ],
+    "createdBy": "Alice",
+    "createdAt": "2025-03-21T18:17:23.562Z"
+  }
+}

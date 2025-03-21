@@ -21,6 +21,10 @@
             <option>David</option>
           </select>
         </div>
+        <div class="chat-controls">
+          <button id="newDirectMessageBtn" class="chat-button">New Direct Message</button>
+          <button id="newGroupChatBtn" class="chat-button">New Group Chat</button>
+        </div>
         <div class="chat-list" id="chatList"></div>
         <button id="registerBtn" class="register-button">Register New User</button>
       </div>
@@ -28,16 +32,18 @@
       <!-- Chat space-->
       <div class="chat-area">
         <div class="chat-header">
-          <h2 id="chatName">Chat Name</h2>
+          <div class="chat-header-content">
+            <h2 id="chatName">Chat Name</h2>
+          </div>
         </div>    
         <div class="message-history" id="messageHistory"></div>
         
         <div class="reply-container" id="replyContainer" style="display: none;">
           <p id="replyingToText"></p>
           <button class="cancel-reply" onclick="cancelReply()">Cancel Reply</button>
-      </div>  
+        </div>  
         
-      <div class="message-input">
+        <div class="message-input">
           <input
             type="text"
             id="messageInput"
@@ -47,7 +53,7 @@
         </div>
       </div>
 
-      <!-- Cont inf (mobile only) -->
+      <!-- Contact info (mobile only) -->
       <div class="contact-info" id="contactInfo">
         <div class="contact-header">
           <h2>Contact Info</h2>
@@ -68,15 +74,41 @@
       </div>
     </div>
 
-    <div id="registerModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3>Register New User</h3>
-            <input type="text" id="newUsername" placeholder="Username" />
-            <input type="email" id="newEmail" placeholder="Email" />
-            <input type="tel" id="newPhone" placeholder="Phone Number" />
-            <button onclick="registerUser()">Register</button>
+    <!-- New Direct Message Modal -->
+    <div id="directMessageModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>New Direct Message</h3>
+        <select id="directMessageUser">
+          <option value="">Select user...</option>
+        </select>
+        <button onclick="createDirectMessage()">Create Chat</button>
+      </div>
+    </div>
+
+    <!-- New Group Chat Modal -->
+    <div id="groupChatModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>New Group Chat</h3>
+        <input type="text" id="groupChatName" placeholder="Group Name" />
+        <div id="groupChatUsers" class="checkbox-list">
+          <!-- Users will be populated here -->
         </div>
+        <button onclick="createGroupChat()">Create Group</button>
+      </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Register New User</h3>
+        <input type="text" id="newUsername" placeholder="Username" />
+        <input type="email" id="newEmail" placeholder="Email" />
+        <input type="tel" id="newPhone" placeholder="Phone Number" />
+        <button onclick="registerUser()">Register</button>
+      </div>
     </div>
 
     <script src="script.js"></script>
