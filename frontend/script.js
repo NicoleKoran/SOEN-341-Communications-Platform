@@ -1,12 +1,18 @@
 const API_URL = "http://localhost:7777";
-let currentUser = "Alice";
+let currentUser = localStorage.getItem("username");
 let currentChat = null;
 let replyingTo = null;
 let isCurrentUserAdmin = false;
 
+// Redirect to login if not logged in
+if (!localStorage.getItem("username")) {
+    window.location.href = "login.html";
+  }
+  
+
 // Modal elements
 const modals = {
-    register: document.getElementById("registerModal"),
+    // register: document.getElementById("registerModal"),
     directMessage: document.getElementById("directMessageModal"),
     groupChat: document.getElementById("groupChatModal")
 };
@@ -57,6 +63,7 @@ document.getElementById("userSelector").addEventListener("change", function() {
     document.getElementById("currentUser").innerText = currentUser;
     loadUserChats();
     checkAdminStatus();
+    
 });
 
 // Load user's chats
@@ -498,6 +505,8 @@ function toggleContactInfo() {
 }
 
 // Modify the registerUser function to close the modal after successful registration
+
+/*
 async function registerUser() {
     const username = document.getElementById("newUsername").value.trim();
     const email = document.getElementById("newEmail").value.trim();
@@ -534,6 +543,7 @@ async function registerUser() {
         alert(error.message);
     }
 }
+    */
 
 // Add this function to load the contact selector
 async function loadContactSelector() {
@@ -599,10 +609,19 @@ async function displayUserDetails(username) {
     }
 }
 
+
 // Call displayUserDetails when the page loads
 window.addEventListener('load', async () => {
     await loadUsers();
     await checkAdminStatus();
     await loadUserChats();
     await displayUserDetails(currentUser);
+    document.getElementById("currentUser").innerText = currentUser;
+    document.getElementById("userSelector").value = currentUser;
+
+});
+
+document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("username"); // Clear login info
+    window.location.href = "login.html"; // Redirect to login
 });

@@ -368,7 +368,7 @@ body {
 
 /* Remove the .user-registration styles and add these new styles */
 
-.register-button {
+.logout-button {
     position: fixed;
     bottom: 20px;
     left: 20px;
@@ -381,7 +381,7 @@ body {
     z-index: 1000;
 }
 
-.register-button:hover {
+.logout-button:hover {
     background: #990000;
 }
 
