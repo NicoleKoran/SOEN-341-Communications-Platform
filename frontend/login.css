@@ -1,0 +1,93 @@
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f1f1;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      padding: 30px 40px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px;
+      cursor: pointer;
+      border: none;
+      background: #bbb;
+      font-weight: bold;
+      color: white;
+      transition: background 0.3s ease;
+    
+    }
+    .tab-btn:hover{
+        background: #9c9b9bef
+        
+    }
+
+    .tab-btn.active {
+      background: darkred;
+    }
+    
+
+    h2 {
+      color: darkred;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button[type="submit"] {
+      padding: 10px;
+      background: darkred;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background: #990000;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    p.error {
+      color: red;
+      font-size: 0.9em;
+      text-align: center;
+      margin: 5px 0 0;
+    }
+  

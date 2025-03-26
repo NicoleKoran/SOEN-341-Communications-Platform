@@ -147,7 +147,7 @@ app.get("/users", (req, res) => {
 });
 
 app.post("/users", (req, res) => {
-    const { username, email, phoneNumber } = req.body;
+    const { username, email, phoneNumber, password } = req.body;
     
     // Validate input
     if (!username || !email || !phoneNumber) {
@@ -164,7 +164,8 @@ app.post("/users", (req, res) => {
         email,
         phoneNumber,
         role: "user", // Default role
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
+        password
     };
     
     // Save to file
@@ -172,6 +173,26 @@ app.post("/users", (req, res) => {
     
     res.json({ username, ...users[username] });
 });
+
+// User login
+app.post("/login", (req, res) => {
+    const { username, password } = req.body;
+
+    const user = users[username];
+
+    if (!user || user.password !== password) {
+        return res.status(401).json({ message: "Invalid username or password" });
+    }
+
+    res.json({
+        message: "Login successful",
+        user: {
+            username,
+            role: user.role
+        }
+    });
+});
+
 
 // Modified message endpoints
 app.get("/messages/:chatId", (req, res) => {
