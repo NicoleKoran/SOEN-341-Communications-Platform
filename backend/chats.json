@@ -32,5 +32,25 @@
     ],
     "createdBy": "12345",
     "createdAt": "2025-03-27T03:29:38.845Z"
+  },
+  "Bob-Noah": {
+    "id": "Bob-Noah",
+    "type": "direct",
+    "participants": [
+      "Noah",
+      "Bob"
+    ],
+    "createdBy": "Noah",
+    "createdAt": "2025-03-27T17:22:01.101Z"
+  },
+  "Alice-Bob": {
+    "id": "Alice-Bob",
+    "type": "direct",
+    "participants": [
+      "Alice",
+      "Bob"
+    ],
+    "createdBy": "Alice",
+    "createdAt": "2025-03-27T17:32:02.433Z"
   }
 }
