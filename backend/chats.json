@@ -22,5 +22,15 @@
     ],
     "createdBy": "Alice",
     "createdAt": "2025-03-21T18:17:23.562Z"
+  },
+  "12345-Alice": {
+    "id": "12345-Alice",
+    "type": "direct",
+    "participants": [
+      "12345",
+      "Alice"
+    ],
+    "createdBy": "12345",
+    "createdAt": "2025-03-27T03:29:38.845Z"
   }
 }

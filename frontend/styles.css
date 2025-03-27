@@ -252,6 +252,8 @@ body {
     flex: 1;
     padding: 10px;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .message {
@@ -274,11 +276,16 @@ body {
 
 .sent {
     background: darkred;
+    text-align: right;
     align-self: flex-end;
+    margin-left: auto;
 }
 
 .received {
     background: #ccc;
+    text-align: left;
+    align-self: flex-start;
+    margin-right: auto;
 }
 
 /* Message Input */
@@ -525,7 +532,7 @@ body {
 }
 
 .reply-btn {
-    right: 10px; /* Reply button stays at original position */
+    right: -55px; /* Reply button stays at original position */
 }
 
 /* Show reply button when hovering over a message */
