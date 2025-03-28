@@ -427,8 +427,13 @@ function displayMessage(msg) {
         messageContent.appendChild(replyPreview);
     }
 
+    const senderName = document.createElement("div");
+    senderName.className = "sender-name";
+    senderName.textContent = msg.sender;
+    messageContent.appendChild(senderName);
+
     const textElement = document.createElement("div");
-    textElement.innerHTML = `<strong>${msg.sender}:</strong> ${msg.text}`;
+    textElement.innerHTML = msg.text;
     messageContent.appendChild(textElement);
 
     messageBox.appendChild(messageContent);
@@ -609,6 +614,13 @@ async function displayUserDetails(username) {
     }
 }
 
+// Add event listener for Enter key in message input
+document.getElementById("messageInput").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault(); // Prevent default to avoid new line
+        sendMessage();
+    }
+});
 
 // Call displayUserDetails when the page loads
 window.addEventListener('load', async () => {
