@@ -9,6 +9,14 @@ const PORT = 7777;
 app.use(cors());
 app.use(express.json());
 
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir);
+}
+
+// Serve uploaded images statically
+app.use('/uploads', express.static(uploadsDir));
+
 // Add this line to serve static files from the frontend directory
 app.use(express.static(path.join(__dirname, '../frontend')));
 
@@ -143,7 +151,8 @@ app.get("/chats/:username", (req, res) => {
 
 // Existing user endpoints
 app.get("/users", (req, res) => {
-    res.json(users);
+    const latestUsers = JSON.parse(fs.readFileSync(USERS_FILE, "utf-8"));
+    res.json(latestUsers);
 });
 
 app.post("/users", (req, res) => {
@@ -306,5 +315,88 @@ app.patch("/chats/:chatId", (req, res) => {
     
     res.json(chats[chatId]);
 });
+
+app.post("/users/:username/upload-profile-picture", (req, res) => {
+    const username = req.params.username;
+    const USERS_FILE = path.join(__dirname, "users.json");
+    const users = JSON.parse(fs.readFileSync(USERS_FILE, "utf-8"));
+
+    if (!users[username]) {
+        return res.status(404).json({ error: "User not found" });
+    }
+
+    let data = Buffer.alloc(0);
+
+    req.on("data", chunk => {
+        data = Buffer.concat([data, chunk]);
+    });
+
+    req.on("end", () => {
+        const contentType = req.headers["content-type"];
+        const boundary = contentType.split("boundary=")[1];
+        if (!boundary) {
+            return res.status(400).json({ error: "Invalid form data" });
+        }
+
+        const parts = data.toString('latin1').split(`--${boundary}`);
+        const filePart = parts.find(part => part.includes("filename="));
+        if (!filePart) {
+            return res.status(400).json({ error: "No file uploaded" });
+        }
+
+        const headerEndIndex = filePart.indexOf("\r\n\r\n");
+        const fileHeader = filePart.substring(0, headerEndIndex);
+        const binaryData = filePart.slice(headerEndIndex + 4, filePart.lastIndexOf("\r\n"));
+
+        const buffer = Buffer.from(binaryData, "binary");
+
+        let extension;
+        if (buffer.slice(0, 4).toString("hex") === "89504e47") {
+            extension = "png";
+        } else if (buffer.slice(0, 3).toString("hex") === "ffd8ff") {
+            extension = "jpg";
+        } else {
+            return res.status(400).json({ error: "Only PNG or JPEG images are supported" });
+        }
+
+        const fileName = `${username}-${Date.now()}.${extension}`;
+        const filePath = path.join(uploadsDir, fileName);
+
+        fs.writeFileSync(filePath, buffer);
+
+        users[username].profilePicture = `/uploads/${fileName}`;
+        fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
+
+        res.json({ imageUrl: `/uploads/${fileName}` });
+    });
+});
+
+app.post("/users/:username/reset-profile-picture", (req, res) => {
+    const username = req.params.username;
+    const USERS_FILE = path.join(__dirname, "users.json");
+    const users = JSON.parse(fs.readFileSync(USERS_FILE, "utf-8"));
+
+    if (!users[username]) {
+        return res.status(404).json({ error: "User not found" });
+    }
+
+    const profilePicPath = users[username].profilePicture;
+
+    if (profilePicPath && profilePicPath.startsWith("/uploads/")) {
+        const fullPath = path.join(__dirname, profilePicPath);
+        if (fs.existsSync(fullPath)) {
+            fs.unlinkSync(fullPath); // delete file from uploads folder for optimixsation
+        }
+    }
+
+    // Defaults to avatar png as before
+    delete users[username].profilePicture;
+
+    fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
+
+    res.json({ message: "Profile picture reset to default and file deleted." });
+});
+
+
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

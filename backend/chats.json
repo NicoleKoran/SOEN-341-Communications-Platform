@@ -52,5 +52,25 @@
     ],
     "createdBy": "Alice",
     "createdAt": "2025-03-27T17:32:02.433Z"
+  },
+  "Alice-Charlie": {
+    "id": "Alice-Charlie",
+    "type": "direct",
+    "participants": [
+      "Alice",
+      "Charlie"
+    ],
+    "createdBy": "Alice",
+    "createdAt": "2025-03-28T14:39:10.136Z"
+  },
+  "Alice-RobertTest": {
+    "id": "Alice-RobertTest",
+    "type": "direct",
+    "participants": [
+      "Alice",
+      "RobertTest"
+    ],
+    "createdBy": "Alice",
+    "createdAt": "2025-03-28T15:11:46.027Z"
   }
 }
