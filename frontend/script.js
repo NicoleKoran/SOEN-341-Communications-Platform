@@ -4,7 +4,6 @@ let currentChat = null;
 let replyingTo = null;
 let isCurrentUserAdmin = false;
 
-
 // Redirect to login if not logged in
 if (!localStorage.getItem("username")) {
     window.location.href = "login.html";
@@ -605,7 +604,7 @@ async function loadUsers() {
 // Load users when page loads
 loadUsers();
 
-// Add this function to display user details
+//display user details
 async function displayUserDetails(username) {
     const response = await fetch(`${API_URL}/users`);
     const users = await response.json();
@@ -617,15 +616,43 @@ async function displayUserDetails(username) {
         document.getElementById("detailPhone").textContent = user.phoneNumber || "-";
         document.getElementById("detailRole").textContent = user.role || "user";
         document.getElementById("detailCreated").textContent = new Date(user.createdAt).toLocaleDateString();
-
-        // ✅ Important: make sure this line is present and working
         document.getElementById("profilePicture").src =
         user.profilePicture ? `${API_URL}${user.profilePicture}?t=${Date.now()}` : "default-avatar.png";
-      
+
+        
+        const isOwnProfile = username === currentUser;
+
+        document.querySelector('button[onclick*="uploadProfilePic"]').style.display = isOwnProfile ? "inline-block" : "none";
+        document.getElementById("resetProfilePicBtn").style.display = isOwnProfile ? "inline-block" : "none";
+
+        const roleContainer = document.getElementById("userDetails");
+
+        // to prevent any buttons from adding each time selectinf diff user
+        const oldBtn = document.getElementById("changeRoleBtn");
+        if (oldBtn) oldBtn.remove();
+
+        const oldBtn2 = document.getElementById("dltBtn");
+        if (oldBtn2) oldBtn2.remove();
+
+        // Change Role btn for admin
+        if (isCurrentUserAdmin && username !== currentUser) {
+            
+            const btn = document.createElement("button");
+            btn.id = "changeRoleBtn";
+            btn.textContent = user.role === "admin" ? "Set as User" : "Set as Admin";
+            btn.onclick = () => changeUserRole(username, user.role === "admin" ? "user" : "admin");
+            roleContainer.appendChild(btn);
+
+            const deleteBtn = document.createElement("button");
+            deleteBtn.id = "dltBtn";
+            deleteBtn.textContent = "Delete User";
+            deleteBtn.onclick = () => deleteUser(username);
+            roleContainer.appendChild(deleteBtn);
+        }
     }
 }
 
-
+//add pfp
 document.getElementById("uploadProfilePic").addEventListener("change", async function () {
     const file = this.files[0];
     if (!file) return;
@@ -691,3 +718,45 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
     localStorage.removeItem("username"); // Clear login info
     window.location.href = "login.html"; // Redirect to login
 });
+
+async function changeUserRole(targetUser, newRole) {
+    try {
+        const response = await fetch(`${API_URL}/users/${targetUser}/role`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                role: newRole,
+                requestingUser: currentUser
+            })
+        });
+
+        if (!response.ok) throw new Error("Failed to change user role");
+
+        //alert(`User role changed to ${newRole}`);
+        await displayUserDetails(targetUser);
+        await loadUsers();
+    } catch (error) {
+        alert(error.message);
+    }
+}
+async function deleteUser(username) {
+    if (!confirm(`Are you sure you want to delete user '${username}'? This will remove all their data.`)) return;
+
+    try {
+        const response = await fetch(`${API_URL}/users/${username}?requestingUser=${currentUser}`, {
+            method: "DELETE"
+        });
+
+        if (!response.ok) throw new Error("Failed to delete user");
+
+        alert(`User '${username}' deleted successfully`);
+        await loadUsers();
+        document.getElementById("contactInfo").style.display = "none";
+        loadUserChats(); //refresh chhats
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
+
+

@@ -397,6 +397,70 @@ app.post("/users/:username/reset-profile-picture", (req, res) => {
     res.json({ message: "Profile picture reset to default and file deleted." });
 });
 
+//admin role promotion feature
+app.patch("/users/:username/role", (req, res) => {
+    const targetUser = req.params.username;
+    const { role, requestingUser } = req.body;
+
+    if (!isAdmin(requestingUser)) {
+        return res.status(403).json({ error: "Only admins can change roles" });
+    }
+
+    if (!users[targetUser]) {
+        return res.status(404).json({ error: "User not found" });
+    }
+
+    if (!["admin", "user"].includes(role)) {
+        return res.status(400).json({ error: "Invalid role" });
+    }
+
+    users[targetUser].role = role;
+    fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
+
+    res.json({ message: `Role updated to ${role}` });
+});
+
+// Delete user (admin only)
+app.delete("/users/:username", (req, res) => {
+    const targetUser = req.params.username;
+    const requestingUser = req.query.requestingUser;
+
+    if (!isAdmin(requestingUser)) {
+        return res.status(403).json({ error: "Only admins can delete users" });
+    }
+
+    if (!users[targetUser]) {
+        return res.status(404).json({ error: "User not found" });
+    }
+
+    // Delete profile picture if so
+    const profilePicPath = users[targetUser].profilePicture;
+    if (profilePicPath && profilePicPath.startsWith("/uploads/")) {
+        const fullPath = path.join(__dirname, profilePicPath);
+        if (fs.existsSync(fullPath)) {
+            fs.unlinkSync(fullPath);
+        }
+    }
+
+    // Remove user
+    delete users[targetUser];
+
+    // Remove user from all chats
+    for (const chatId in chats) {
+        chats[chatId].participants = chats[chatId].participants.filter(p => p !== targetUser);
+        if (chats[chatId].participants.length === 0) {
+            delete chats[chatId];
+            delete messages[chatId];
+        }
+    }
+
+    // Save updates
+    fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
+    fs.writeFileSync(CHATS_FILE, JSON.stringify(chats, null, 2));
+    fs.writeFileSync(DATABASE_FILE, JSON.stringify(messages, null, 2));
+
+    res.json({ message: `User '${targetUser}' deleted successfully` });
+});
 
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

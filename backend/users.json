@@ -1,25 +1,4 @@
 {
-  "123": {
-    "email": "12@gmail.com",
-    "phoneNumber": "12342",
-    "role": "user",
-    "createdAt": "2025-03-26T20:48:26.929Z",
-    "password": "12345"
-  },
-  "12345": {
-    "email": "123@gmail.com",
-    "phoneNumber": "123456",
-    "role": "user",
-    "createdAt": "2025-03-26T21:05:33.670Z",
-    "password": "12345"
-  },
-  "123456": {
-    "email": "123456@gmai.com",
-    "phoneNumber": "123456",
-    "role": "user",
-    "createdAt": "2025-03-28T16:02:29.774Z",
-    "password": "12345"
-  },
   "Alice": {
     "email": "alice@gmail.com",
     "phoneNumber": "999",
@@ -39,8 +18,7 @@
     "phoneNumber": "321",
     "role": "user",
     "createdAt": "2024-03-02T00:00:00.000Z",
-    "password": "12345",
-    "profilePicture": "/uploads/Charlie-1743173505841.png"
+    "password": "12345"
   },
   "David": {
     "email": "david@gmail.com",
@@ -54,7 +32,8 @@
     "phoneNumber": "124",
     "role": "admin",
     "createdAt": "2025-03-02T17:22:44.756Z",
-    "password": "12345"
+    "password": "12345",
+    "profilePicture": "/uploads/RobertTest-1743179774144.png"
   },
   "Testingagain": {
     "email": "Test@gmail.com",
