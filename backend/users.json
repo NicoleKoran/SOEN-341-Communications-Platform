@@ -54,5 +54,12 @@
     "role": "user",
     "createdAt": "2025-03-02T17:28:48.352Z",
     "password": "12345"
+  },
+  "Noah": {
+    "email": "noah@gmail.com",
+    "phoneNumber": "514-222-2222",
+    "role": "user",
+    "createdAt": "2025-03-27T17:21:51.264Z",
+    "password": "noah123"
   }
 }
