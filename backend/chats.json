@@ -23,26 +23,6 @@
     "createdBy": "Alice",
     "createdAt": "2025-03-21T18:17:23.562Z"
   },
-  "12345-Alice": {
-    "id": "12345-Alice",
-    "type": "direct",
-    "participants": [
-      "12345",
-      "Alice"
-    ],
-    "createdBy": "12345",
-    "createdAt": "2025-03-27T03:29:38.845Z"
-  },
-  "Bob-Noah": {
-    "id": "Bob-Noah",
-    "type": "direct",
-    "participants": [
-      "Noah",
-      "Bob"
-    ],
-    "createdBy": "Noah",
-    "createdAt": "2025-03-27T17:22:01.101Z"
-  },
   "Alice-Bob": {
     "id": "Alice-Bob",
     "type": "direct",
@@ -52,25 +32,5 @@
     ],
     "createdBy": "Alice",
     "createdAt": "2025-03-27T17:32:02.433Z"
-  },
-  "Alice-Charlie": {
-    "id": "Alice-Charlie",
-    "type": "direct",
-    "participants": [
-      "Alice",
-      "Charlie"
-    ],
-    "createdBy": "Alice",
-    "createdAt": "2025-03-28T14:39:10.136Z"
-  },
-  "Alice-RobertTest": {
-    "id": "Alice-RobertTest",
-    "type": "direct",
-    "participants": [
-      "Alice",
-      "RobertTest"
-    ],
-    "createdBy": "Alice",
-    "createdAt": "2025-03-28T15:11:46.027Z"
   }
 }
