@@ -13,6 +13,13 @@
     "createdAt": "2025-03-26T21:05:33.670Z",
     "password": "12345"
   },
+  "123456": {
+    "email": "123456@gmai.com",
+    "phoneNumber": "123456",
+    "role": "user",
+    "createdAt": "2025-03-28T16:02:29.774Z",
+    "password": "12345"
+  },
   "Alice": {
     "email": "alice@gmail.com",
     "phoneNumber": "999",
@@ -32,7 +39,8 @@
     "phoneNumber": "321",
     "role": "user",
     "createdAt": "2024-03-02T00:00:00.000Z",
-    "password": "12345"
+    "password": "12345",
+    "profilePicture": "/uploads/Charlie-1743173505841.png"
   },
   "David": {
     "email": "david@gmail.com",

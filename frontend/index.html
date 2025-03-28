@@ -14,15 +14,23 @@
           <h2 class="username">
             Logged in as: <span id="currentUser">Alice</span>
           </h2>
+        <!--
           <select id="userSelector">
-          
           </select>
+        -->
         </div>
         <div class="chat-controls">
           <button id="newDirectMessageBtn" class="chat-button">New Direct Message</button>
           <button id="newGroupChatBtn" class="chat-button">New Group Chat</button>
         </div>
-        <div class="chat-list" id="chatList"></div>
+        <div class="chat-list" id="chatList">
+          <h3>Direct Messages</h3>
+          <div id="directChatsContainer" class="chat-section"></div>
+        
+          <h3>Group Chats</h3>
+          <div id="groupChatsContainer" class="chat-section"></div>
+        </div>
+        
         <button id="logoutBtn" class="logout-button">Logout</button>
 
       </div>
@@ -51,7 +59,7 @@
         </div>
       </div>
 
-      <!-- Contact info (mobile only) -->
+      <!-- Contact info -->
       <div class="contact-info" id="contactInfo">
         <div class="contact-header">
           <h2>Contact Info</h2>
@@ -62,6 +70,15 @@
             <button class="close-btn" onclick="toggleContactInfo()">Close</button>
           </div>
         </div>
+        <!-- Profile picture -->
+        <div class="profile-picture-container">
+          <img id="profilePicture" class="profile-picture" src="default-avatar.png" alt="Profile Picture">
+          <input type="file" id="uploadProfilePic" accept="image/*" style="display: none;" />
+          <button onclick="document.getElementById('uploadProfilePic').click()">Change Picture</button>
+          <button id="resetProfilePicBtn">Reset to Default</button>
+
+        </div>        
+
         <div id="userDetails">
           <p><strong>Username:</strong> <span id="detailUsername">-</span></p>
           <p><strong>Email:</strong> <span id="detailEmail">-</span></p>

@@ -4,6 +4,7 @@ let currentChat = null;
 let replyingTo = null;
 let isCurrentUserAdmin = false;
 
+
 // Redirect to login if not logged in
 if (!localStorage.getItem("username")) {
     window.location.href = "login.html";
@@ -58,35 +59,37 @@ document.getElementById("newGroupChatBtn").onclick = function() {
 }
 
 // User selector change handler
-document.getElementById("userSelector").addEventListener("change", function() {
-    currentUser = this.value;
-    document.getElementById("currentUser").innerText = currentUser;
-    loadUserChats();
-    checkAdminStatus();
+/*
+    document.getElementById("userSelector").addEventListener("change", function() {
+        currentUser = this.value;
+        document.getElementById("currentUser").innerText = currentUser;
+        loadUserChats();
+        checkAdminStatus();
     
-});
+    });
+*/
 
 // Load user's chats
 async function loadUserChats() {
     const response = await fetch(`${API_URL}/chats/${currentUser}`);
     const userChats = await response.json();
-    
-    const chatList = document.getElementById("chatList");
-    chatList.innerHTML = "";
-    
-    // Convert object to array if it's an object (admin case)
+
     const chatsArray = Array.isArray(userChats) ? userChats : Object.values(userChats);
-    console.log("Chats array:", chatsArray);
-    console.log("Is current user admin:", isCurrentUserAdmin);
-    
+
+    // Clear both sections
+    const directContainer = document.getElementById("directChatsContainer");
+    const groupContainer = document.getElementById("groupChatsContainer");
+    directContainer.innerHTML = "";
+    groupContainer.innerHTML = "";
+
     chatsArray.forEach(chat => {
         const chatElement = document.createElement("div");
         chatElement.className = "chat";
-        
-        let chatName = chat.type === "direct" 
-            ? chat.participants.sort().join("-") // Sort and join both names
+
+        let chatName = chat.type === "direct"
+            ? chat.participants.filter(p => p !== currentUser).join(" - ")
             : chat.name;
-            
+
         const menuHtml = isCurrentUserAdmin ? `
             <div class="chat-actions">
                 <button class="chat-menu-btn" aria-label="Chat options">⋮</button>
@@ -96,27 +99,28 @@ async function loadUserChats() {
                 </div>
             </div>
         ` : '';
-        
-        console.log("Menu HTML for chat:", chat.id, menuHtml);
-            
+
         chatElement.innerHTML = `
             <div class="chat-info">
                 <span>${chatName}</span>
-                <span class="chat-type">${chat.type}</span>
             </div>
             ${menuHtml}
         `;
-        
+
         chatElement.querySelector('.chat-info').onclick = () => openChat(chat.id);
-        chatList.appendChild(chatElement);
+
+        if (chat.type === "direct") {
+            directContainer.appendChild(chatElement);
+        } else {
+            groupContainer.appendChild(chatElement);
+        }
     });
 
-    // Add click handlers for dropdown menus
+    // Dropdown toggle logic
     document.querySelectorAll('.chat-menu-btn').forEach(btn => {
         btn.onclick = (e) => {
             e.stopPropagation();
             const dropdown = btn.nextElementSibling;
-            // Close all other dropdowns
             document.querySelectorAll('.chat-dropdown').forEach(d => {
                 if (d !== dropdown) d.style.display = 'none';
             });
@@ -124,7 +128,7 @@ async function loadUserChats() {
         };
     });
 
-    // Close dropdowns when clicking outside
+    // Close all dropdowns when clicking outside
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.chat-actions')) {
             document.querySelectorAll('.chat-dropdown').forEach(dropdown => {
@@ -582,6 +586,7 @@ async function loadUsers() {
     const response = await fetch(`${API_URL}/users`);
     const users = await response.json();
     
+/*
     const userSelector = document.getElementById("userSelector");
     userSelector.innerHTML = ""; // Clear existing options
     
@@ -591,6 +596,7 @@ async function loadUsers() {
         option.textContent = username;
         userSelector.appendChild(option);
     });
+*/
 
     // Also load the contact selector
     await loadContactSelector();
@@ -611,8 +617,56 @@ async function displayUserDetails(username) {
         document.getElementById("detailPhone").textContent = user.phoneNumber || "-";
         document.getElementById("detailRole").textContent = user.role || "user";
         document.getElementById("detailCreated").textContent = new Date(user.createdAt).toLocaleDateString();
+
+        // ✅ Important: make sure this line is present and working
+        document.getElementById("profilePicture").src =
+        user.profilePicture ? `${API_URL}${user.profilePicture}?t=${Date.now()}` : "default-avatar.png";
+      
     }
 }
+
+
+document.getElementById("uploadProfilePic").addEventListener("change", async function () {
+    const file = this.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("profilePicture", file);
+
+    const response = await fetch(`${API_URL}/users/${currentUser}/upload-profile-picture`, {
+        method: "POST",
+        body: formData
+    });
+
+    if (!response.ok) {
+        alert("Failed to upload profile picture");
+        return;
+    }
+
+    const data = await response.json();
+    document.getElementById("profilePicture").src = data.imageUrl;
+});
+
+document.getElementById("resetProfilePicBtn").addEventListener("click", async function () {
+
+    const response = await fetch(`${API_URL}/users/${currentUser}/reset-profile-picture`, {
+        method: "POST"
+    })
+
+    if (!response.ok) {
+        alert("Failed to reset profile picture");
+        return;
+    }
+
+    // Reset the image in the UI
+    document.getElementById("profilePicture").src = "default-avatar.png";
+
+    // Optionally re-fetch user data to stay in sync
+    await displayUserDetails(currentUser);
+});
+
+
+
 
 // Add event listener for Enter key in message input
 document.getElementById("messageInput").addEventListener("keypress", function(event) {
@@ -629,7 +683,7 @@ window.addEventListener('load', async () => {
     await loadUserChats();
     await displayUserDetails(currentUser);
     document.getElementById("currentUser").innerText = currentUser;
-    document.getElementById("userSelector").value = currentUser;
+//  document.getElementById("userSelector").value = currentUser;
 
 });
 
