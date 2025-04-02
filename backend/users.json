@@ -1,7 +1,7 @@
 {
   "Alice": {
     "email": "alice@gmail.com",
-    "phoneNumber": "999",
+    "phoneNumber": "1234",
     "role": "user",
     "createdAt": "2024-03-02T00:00:00.000Z",
     "password": "12345"

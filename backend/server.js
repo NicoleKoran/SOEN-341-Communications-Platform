@@ -397,6 +397,64 @@ app.post("/users/:username/reset-profile-picture", (req, res) => {
     res.json({ message: "Profile picture reset to default and file deleted." });
 });
 
+app.patch("/users/:username", (req, res) => {
+    const oldUsername = req.params.username;
+    const { newUsername, email, phoneNumber, requestingUser } = req.body;
+
+    if (!isAdmin(requestingUser) && requestingUser !== oldUsername) {
+        return res.status(403).json({ error: "Unauthorized" });
+    }
+
+    if (!users[oldUsername]) {
+        return res.status(404).json({ error: "User not found" });
+    }
+
+    if (!newUsername || !email || !phoneNumber) {
+        return res.status(400).json({ error: "All fields are required" });
+    }
+
+    // Rename user if the username is being changed
+    if (oldUsername !== newUsername) {
+        if (users[newUsername]) {
+            return res.status(400).json({ error: "New username already exists" });
+        }
+
+        users[newUsername] = { ...users[oldUsername], email, phoneNumber };
+        delete users[oldUsername];
+
+        // Update username references in chats
+        for (const chat of Object.values(chats)) {
+            const index = chat.participants.indexOf(oldUsername);
+            if (index !== -1) chat.participants[index] = newUsername;
+            if (chat.createdBy === oldUsername) chat.createdBy = newUsername;
+        }
+
+        // Update messages
+        for (const msgs of Object.values(messages)) {
+            for (const msg of msgs) {
+                if (msg.sender === oldUsername) msg.sender = newUsername;
+                if (msg.replyTo?.sender === oldUsername) msg.replyTo.sender = newUsername;
+            }
+        }
+
+        // Update localStorage username if editing your own profile
+        if (requestingUser === oldUsername) {
+            res.json({ newUsername });
+        } else {
+            res.json({ message: "User updated successfully" });
+        }
+    } else {
+        users[oldUsername].email = email;
+        users[oldUsername].phoneNumber = phoneNumber;
+        res.json({ message: "User updated successfully" });
+    }
+
+    // Save to files
+    fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
+    fs.writeFileSync(CHATS_FILE, JSON.stringify(chats, null, 2));
+    fs.writeFileSync(DATABASE_FILE, JSON.stringify(messages, null, 2));
+});
+
 //admin role promotion feature
 app.patch("/users/:username/role", (req, res) => {
     const targetUser = req.params.username;
