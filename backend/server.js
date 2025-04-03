@@ -221,7 +221,7 @@ app.get("/messages/:chatId", (req, res) => {
 });
 
 app.post("/messages", (req, res) => {
-    const { chatId, sender, text, replyTo } = req.body;
+    const { chatId, sender, text, image, replyTo } = req.body;
 
     if (!chats[chatId]) {
         return res.status(404).json({ error: "Chat not found" });
@@ -239,6 +239,7 @@ app.post("/messages", (req, res) => {
     const message = {
         sender,
         text,
+        image,
         timestamp: new Date().toISOString(),
         replyTo: replyTo ? { sender: replyTo.sender, text: replyTo.text } : null
     };

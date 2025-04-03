@@ -1,6 +1,6 @@
 {
   "Alice": {
-    "email": "alice@gmail.com",
+    "email": "alice@gmail.co.uk",
     "phoneNumber": "1234",
     "role": "user",
     "createdAt": "2024-03-02T00:00:00.000Z",
@@ -29,18 +29,11 @@
   },
   "RobertTest": {
     "email": "Robert@gmail.com",
-    "phoneNumber": "124",
+    "phoneNumber": "5185679080",
     "role": "admin",
     "createdAt": "2025-03-02T17:22:44.756Z",
     "password": "12345",
     "profilePicture": "/uploads/RobertTest-1743179774144.png"
-  },
-  "Testingagain": {
-    "email": "Test@gmail.com",
-    "phoneNumber": "123",
-    "role": "user",
-    "createdAt": "2025-03-02T17:28:48.352Z",
-    "password": "12345"
   },
   "Noah": {
     "email": "noah@gmail.com",

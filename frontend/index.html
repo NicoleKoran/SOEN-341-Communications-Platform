@@ -49,15 +49,30 @@
           <button class="cancel-reply" onclick="cancelReply()">Cancel Reply</button>
         </div>  
         
+        <div id="imagePreviewContainer" style="display: none; padding: 10px; text-align: center;">
+          <p><strong>Image selected:</strong></p>
+          <img id="imagePreview" style="max-width: 200px; border-radius: 8px;" />
+          <div style="margin-top: 10px;">
+            <button id="confirmImageBtn" style="margin-right: 10px;">Confirm</button>
+            <button id="cancelImageBtn">Cancel</button>
+          </div>
+        </div>
+        
+
         <div class="message-input">
-          <input
-            type="text"
-            id="messageInput"
-            placeholder="Type a message..."
-          />
+          <!-- 📷 Image file input -->
+          <input type="file" id="imageInput" accept="image/*" style="display: none;" />
+          <button id="imageUploadBtn" onclick="document.getElementById('imageInput').click()">🖼️</button>
+
+          <!-- 💬 Text message input -->
+          <input type="text" id="messageInput" placeholder="Type a message..." />
+        
+          <!-- 🚀 Send button -->
           <button onclick="sendMessage()">Send</button>
         </div>
+        
       </div>
+
 
       <!-- Contact info -->
       <div class="contact-info" id="contactInfo">

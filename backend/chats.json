@@ -32,5 +32,15 @@
     ],
     "createdBy": "Alice",
     "createdAt": "2025-03-27T17:32:02.433Z"
+  },
+  "Alice-Noah": {
+    "id": "Alice-Noah",
+    "type": "direct",
+    "participants": [
+      "Alice",
+      "Noah"
+    ],
+    "createdBy": "Alice",
+    "createdAt": "2025-04-03T03:46:12.088Z"
   }
 }
