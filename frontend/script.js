@@ -624,6 +624,7 @@ async function displayUserDetails(username) {
 
         document.querySelector('button[onclick*="uploadProfilePic"]').style.display = isOwnProfile ? "inline-block" : "none";
         document.getElementById("resetProfilePicBtn").style.display = isOwnProfile ? "inline-block" : "none";
+        document.getElementById("editUserBtn").style.display = isOwnProfile ? "block" : "none";
 
         const roleContainer = document.getElementById("userDetails");
 
@@ -758,5 +759,68 @@ async function deleteUser(username) {
     }
 }
 
+// Edit modal reference
+const editUserModal = document.getElementById("editUserModal");
+const closeEditModal = document.getElementById("closeEditModal");
+
+document.getElementById("editUserBtn").addEventListener("click", () => {
+    const username = document.getElementById("detailUsername").textContent;
+    const email = document.getElementById("detailEmail").textContent;
+    const phone = document.getElementById("detailPhone").textContent;
+
+    document.getElementById("editUsername").value = username;
+    document.getElementById("editEmail").value = email !== "-" ? email : "";
+    document.getElementById("editPhone").value = phone !== "-" ? phone : "";
+
+    editUserModal.style.display = "block";
+});
+
+closeEditModal.onclick = () => {
+    editUserModal.style.display = "none";
+};
+
+window.addEventListener("click", (e) => {
+    if (e.target === editUserModal) editUserModal.style.display = "none";
+});
+
+document.getElementById("saveUserChanges").addEventListener("click", async () => {
+    const originalUsername = document.getElementById("detailUsername").textContent;
+    const newUsername = document.getElementById("editUsername").value.trim();
+    const newEmail = document.getElementById("editEmail").value.trim();
+    const newPhone = document.getElementById("editPhone").value.trim();
+
+    if (!newUsername || !newEmail || !newPhone) {
+        alert("All fields are required");
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/users/${originalUsername}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                newUsername,
+                email: newEmail,
+                phoneNumber: newPhone,
+                requestingUser: currentUser
+            })
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || "Failed to update user");
+        }
+
+        const msg = document.getElementById("editUserMessage");
+            msg.style.color = "green";
+            msg.textContent = "User updated successfully!";
+            await loadUsers();
+            await displayUserDetails(newUsername);
+
+    } catch (error) {
+        msg.style.color = "darkred";
+        msg.textContent = error.message;
+    }
+});
 
 
