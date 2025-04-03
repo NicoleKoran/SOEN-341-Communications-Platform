@@ -325,6 +325,7 @@ body {
 
 .message-input button {
     margin-left: 5px;
+    margin-right: 5px;
     padding: 8px;
     background: darkred;
     color: white;
@@ -560,9 +561,12 @@ body {
 .message:hover .reply-btn {
     opacity: 1; /* Fade in */
 }
+.reply-btn:hover {
+    background: #990000;
+}
 .delete-msg-btn {
     position: absolute;
-    right: 70px; /* Slightly to the left of the Reply button */
+    right: -115px; /* Slightly to the left of the Reply button */
     top: 50%;
     transform: translateY(-50%);
     font-size: 0.85em;
@@ -749,10 +753,9 @@ body {
   }
   
   .edit-msg {
-    margin-top: 10px;
-    font-size: 14px;
-    text-align: center;
-    color: darkred;
-    font-weight: bold;
-  }
-  
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+  color: darkred;
+  font-weight: bold;
+}

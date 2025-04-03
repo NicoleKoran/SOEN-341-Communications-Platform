@@ -385,13 +385,23 @@ async function sendMessage() {
     }
     
     const input = document.getElementById("messageInput");
+    const imageInput = document.getElementById("imageInput");
     const text = input.value.trim();
-    if (!text) return;
+
+    let imageData = null;
+
+    if (imageInput.files.length > 0) {
+        const file = imageInput.files[0];
+        imageData = await compressAndConvertImage(file, 0.6); // 60% quality
+    }
+
+    if (!text && !imageData) return;
 
     const message = {
         chatId: currentChat,
         sender: currentUser,
         text,
+        image: imageData,
         replyTo: replyingTo ? { sender: replyingTo.sender, text: replyingTo.text } : null
     };
 
@@ -409,6 +419,8 @@ async function sendMessage() {
         const sentMessage = await response.json();
         displayMessage(sentMessage);
         input.value = "";
+        imageInput.value = null;
+        document.getElementById("imageUploadBtn").textContent = "🖼️";
         replyingTo = null;
         document.getElementById("replyContainer").style.display = "none";
     } catch (error) {
@@ -418,6 +430,8 @@ async function sendMessage() {
 
 function displayMessage(msg) {
     const messageBox = document.createElement("div");
+
+
     messageBox.className = `message ${msg.sender === currentUser ? "sent" : "received"}`;
 
     const messageContent = document.createElement("div");
@@ -435,9 +449,22 @@ function displayMessage(msg) {
     senderName.textContent = msg.sender;
     messageContent.appendChild(senderName);
 
-    const textElement = document.createElement("div");
-    textElement.innerHTML = msg.text;
-    messageContent.appendChild(textElement);
+    if (msg.text) {
+        const textElement = document.createElement("div");
+        textElement.innerHTML = msg.text;
+        messageContent.appendChild(textElement);
+    }
+
+    // is there image? this func checks
+    if (msg.image) {
+        const imageElement = document.createElement("img");
+        imageElement.src = msg.image;
+        imageElement.alt = "Image message";
+        imageElement.style.maxWidth = "200px";
+        imageElement.style.marginTop = "8px";
+        imageElement.style.borderRadius = "6px";
+        messageContent.appendChild(imageElement);
+    }
 
     messageBox.appendChild(messageContent);
 
@@ -458,6 +485,10 @@ function displayMessage(msg) {
         replyBtn.className = "reply-btn";
         replyBtn.onclick = () => setReply(msg);
         buttonContainer.appendChild(replyBtn);
+    }
+
+    if (buttonContainer.children.length > 0) {
+        messageBox.appendChild(buttonContainer);
     }
 
     messageBox.appendChild(buttonContainer);
@@ -715,6 +746,16 @@ window.addEventListener('load', async () => {
 
 });
 
+document.getElementById("imageInput").addEventListener("change", function () {
+    const button = document.getElementById("imageUploadBtn");
+    if (this.files && this.files.length > 0) {
+        button.textContent = "✅";
+    } else {
+        button.textContent = "🖼️";
+    }
+});
+
+
 document.getElementById("logoutBtn").addEventListener("click", () => {
     localStorage.removeItem("username"); // Clear login info
     window.location.href = "login.html"; // Redirect to login
@@ -822,5 +863,39 @@ document.getElementById("saveUserChanges").addEventListener("click", async () =>
         msg.textContent = error.message;
     }
 });
+
+function compressAndConvertImage(file, quality = 0.7) {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement("canvas");
+                const maxSize = 800;
+                let width = img.width;
+                let height = img.height;
+
+                if (width > maxSize || height > maxSize) {
+                    if (width > height) {
+                        height *= maxSize / width;
+                        width = maxSize;
+                    } else {
+                        width *= maxSize / height;
+                        height = maxSize;
+                    }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0, width, height);
+                const compressedData = canvas.toDataURL("image/jpeg", quality);
+                resolve(compressedData);
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+}
 
 
