@@ -781,6 +781,7 @@ async function changeUserRole(targetUser, newRole) {
         alert(error.message);
     }
 }
+
 async function deleteUser(username) {
     if (!confirm(`Are you sure you want to delete user '${username}'? This will remove all their data.`)) return;
 
@@ -792,13 +793,31 @@ async function deleteUser(username) {
         if (!response.ok) throw new Error("Failed to delete user");
 
         alert(`User '${username}' deleted successfully`);
+
+        // Reload user list and chats
         await loadUsers();
-        document.getElementById("contactInfo").style.display = "none";
-        loadUserChats(); //refresh chhats
+        await loadUserChats();
+
+        const contactSelector = document.getElementById("contactSelector");
+
+        // Try to auto-select the first available user (after the placeholder option)
+        const options = contactSelector.querySelectorAll("option");
+        if (options.length > 1) {
+            contactSelector.selectedIndex = 1;
+            const newUser = contactSelector.value;
+            await displayUserDetails(newUser);
+            document.getElementById("contactInfo").style.display = "flex";
+        } else {
+            // No users left to show
+            contactSelector.value = "";
+            document.getElementById("contactInfo").style.display = "none";
+        }
+
     } catch (error) {
         alert(error.message);
     }
 }
+
 
 // Edit modal reference
 const editUserModal = document.getElementById("editUserModal");

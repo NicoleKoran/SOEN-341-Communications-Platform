@@ -35,13 +35,6 @@
     "password": "12345",
     "profilePicture": "/uploads/RobertTest-1743179774144.png"
   },
-  "Testingagain": {
-    "email": "Test@gmail.com",
-    "phoneNumber": "123",
-    "role": "user",
-    "createdAt": "2025-03-02T17:28:48.352Z",
-    "password": "12345"
-  },
   "Noah": {
     "email": "noah@gmail.com",
     "phoneNumber": "514-222-2222",
