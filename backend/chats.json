@@ -42,5 +42,18 @@
     ],
     "createdBy": "Alice",
     "createdAt": "2025-04-03T03:46:12.088Z"
+  },
+  "group-1744136705112": {
+    "id": "group-1744136705112",
+    "type": "group",
+    "name": "Testing",
+    "participants": [
+      "RobertTest",
+      "Alice",
+      "Bob",
+      "Charlie"
+    ],
+    "createdBy": "RobertTest",
+    "createdAt": "2025-04-08T18:25:05.112Z"
   }
 }
